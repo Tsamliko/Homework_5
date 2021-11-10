@@ -1,67 +1,65 @@
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.commands.SetValue;
+import FinalProject.Chrome.ChromeRunner;
+import FinalProject.Chrome.Retry;
+import com.codeborne.selenide.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import org.testng.Assert;
+import org.testng.annotations.Listeners;
+import org.testng.annotations.Test;
 
 import static com.codeborne.selenide.Selectors.*;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.sleep;
+import static com.codeborne.selenide.Selenide.*;
 
-
-public class Test1 {
-    @Test
-    public void test(){
-        WebDriverManager.chromedriver().setup();
-        Configuration.startMaximized = true;
-        Selenide.open("https:https://ee.ge/");
-        $(byText("რეგისტრაცია")).click();
-        $(byText("სწრაფი რეგისტრაცია")).shouldBe(Condition.appear);
-        $(byName("firstname")).setValue("Ani");
-        $(byName("firstname")).shouldNotBe(Condition.empty);
-        $(byName("lastname")).setValue("Tsamalashvili");
-        $(byName("lastname")).shouldNotBe(Condition.empty);
-        sleep(4000);
-    }
-
-
-     @Test
-    public void Facebook(){
+@Listeners (FinalProject.Chrome.TestLister.class)
+public class Test1 extends ChromeRunner {
+    @Test(retryAnalyzer = Retry.class)
+    public void test() {
         WebDriverManager.firefoxdriver().setup();
         Configuration.startMaximized = true;
-        Selenide.open( "https://www.facebook.com/");
-        $(byLinkText("Create New Account")).click();
-        sleep(2000);
-        $(byName("firstname")).setValue("Ani");
-        $(byName("lastname")).setValue("Tsamalashvili");
-        $(byName("reg_email__")).setValue("599855105");
-        $(byName("reg_passwd__")).setValue("Jbcfejbek123");
-        $(byName("birthday_year")).selectOption("1996");
-        $(byName("birthday_day")).selectOption("13");
-        $(byName("birthday_month")).selectOption("Jun");
-        $(byText("Custom")).click();
-        sleep(1000);
-        $(byName("custom_gender")).shouldBe(Condition.visible);
-        $(byName("preferred_pronoun")).shouldBe(Condition.visible);
-        sleep(2000);
-        $(byText("Female")).click();
-        $(byName("preferred_pronoun")).shouldBe(Condition.hidden);
-        $(byName("custom_gender")).shouldBe(Condition.hidden);
+//        $(byText("რეგისტრაცია")).click();
+//        Assert.assertFalse($(byText("სწრაფი რეგისტრაცია")).is(Condition.visible));
+//        $(byId("firstName")).setValue("ani");
+//        Assert.assertTrue($(byId("firstName")).is(Condition.empty));
+//        $(byId("lastName")).setValue("test");
+//        Assert.assertFalse($(byId("lastName")).is(Condition.empty));
+//        $(byName("email")).setValue("tsamliko123@gmail.com");
+//        $(by("id","Password")).setValue("test");
+//        $(by("id","ConfirmPassword")).setValue("test");
+//        sleep(4000);
+    }
 
-
-
-
-
-
+    @Test
+    public void Neg1() {
+        WebDriverManager.firefoxdriver().setup();
+        Configuration.startMaximized = true;
+//        Selenide.open("https:https://ee.ge/");
+        $(byText("რეგისტრაცია")).click();
+        $("#signup").shouldBe(Condition.disabled);
+        $(byId("firstName")).click();
+        $(byId("lastName")).click();
+        $(byText("სახელი სავალდებულოა")).shouldBe(Condition.visible);
+        $(byId("lastName")).click();
+        $(byId("email")).click();
+        $(byText("გვარი სავალდებულოა")).shouldBe(Condition.visible);
+        Assert.assertTrue($(byText("ელ.ფოსტა სავალდებულოა")).is(Condition.appear));
+        Assert.assertTrue($(byText("პაროლი სავალდებულოა")).is(Condition.appear));
+        Assert.assertTrue($(byText("პაროლის გამეორება სავალდებულოა")).is(Condition.appear));
 
     }
 
 
+    @Test
+    public void neg2() {
+        WebDriverManager.firefoxdriver().setup();
+        Configuration.startMaximized = true;
+//        Selenide.open("https:https://ee.ge/");
+//        $(".btn-cart").click();
+//        $(".btn-cart").shouldBe(Condition.empty);
+        $(byId("search-list")).setValue("კომპიუტერი").pressEnter();
+        $(byClassName("d-xs-none")).click();
 
 
+//
+
+    }
 
 }
