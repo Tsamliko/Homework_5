@@ -2,6 +2,7 @@ import FinalProject.Chrome.ChromeRunner;
 import FinalProject.Chrome.Retry;
 import com.codeborne.selenide.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.Keys;
 import org.testng.Assert;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -27,23 +28,27 @@ public class Test1 extends ChromeRunner {
 //        sleep(4000);
     }
 
+
     @Test
     public void Neg1() {
         WebDriverManager.firefoxdriver().setup();
         Configuration.startMaximized = true;
 //        Selenide.open("https:https://ee.ge/");
         $(byText("რეგისტრაცია")).click();
-        $("#signup").shouldBe(Condition.disabled);
+//        $("#signup").shouldBe(Condition.disabled);
         $(byId("firstName")).click();
         $(byId("lastName")).click();
         $(byText("სახელი სავალდებულოა")).shouldBe(Condition.visible);
         $(byId("lastName")).click();
         $(byId("email")).click();
         $(byText("გვარი სავალდებულოა")).shouldBe(Condition.visible);
-        Assert.assertTrue($(byText("ელ.ფოსტა სავალდებულოა")).is(Condition.appear));
+        $(byId("email")).click();
+        $(byId("password")).click();
+        $(byText("ელ. ფოსტა სავალდებულოა")).shouldBe(Condition.visible);
+        $(byId("password")).click();
+        $(byId("confirmPassword")).click();
         Assert.assertTrue($(byText("პაროლი სავალდებულოა")).is(Condition.appear));
-        Assert.assertTrue($(byText("პაროლის გამეორება სავალდებულოა")).is(Condition.appear));
-
+        $(byId("confirmPassword")).sendKeys(Keys.BACK_SPACE);
     }
 
 
