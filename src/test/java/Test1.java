@@ -16,16 +16,16 @@ public class Test1 extends ChromeRunner {
     public void test() {
         WebDriverManager.firefoxdriver().setup();
         Configuration.startMaximized = true;
-//        $(byText("რეგისტრაცია")).click();
-//        Assert.assertFalse($(byText("სწრაფი რეგისტრაცია")).is(Condition.visible));
-//        $(byId("firstName")).setValue("ani");
-//        Assert.assertTrue($(byId("firstName")).is(Condition.empty));
-//        $(byId("lastName")).setValue("test");
-//        Assert.assertFalse($(byId("lastName")).is(Condition.empty));
-//        $(byName("email")).setValue("tsamliko123@gmail.com");
-//        $(by("id","Password")).setValue("test");
-//        $(by("id","ConfirmPassword")).setValue("test");
-//        sleep(4000);
+       $(byText("რეგისტრაცია")).click();
+       Assert.assertFalse($(byText("სწრაფი რეგისტრაცია")).is(Condition.visible));
+       $(byId("firstName")).setValue("ani");
+       Assert.assertTrue($(byId("firstName")).is(Condition.empty));
+       $(byId("lastName")).setValue("test");
+       Assert.assertFalse($(byId("lastName")).is(Condition.empty));
+       $(byName("email")).setValue("tsamliko123@gmail.com");
+       $(by("id","Password")).setValue("test");
+       $(by("id","ConfirmPassword")).setValue("test");
+       sleep(4000);
     }
 
 
@@ -33,9 +33,9 @@ public class Test1 extends ChromeRunner {
     public void Neg1() {
         WebDriverManager.firefoxdriver().setup();
         Configuration.startMaximized = true;
-//        Selenide.open("https:https://ee.ge/");
+
         $(byText("რეგისტრაცია")).click();
-//        $("#signup").shouldBe(Condition.disabled);
+        $("#signup").shouldBe(Condition.disabled);
         $(byId("firstName")).click();
         $(byId("lastName")).click();
         $(byText("სახელი სავალდებულოა")).shouldBe(Condition.visible);
@@ -56,14 +56,13 @@ public class Test1 extends ChromeRunner {
     public void neg2() {
         WebDriverManager.firefoxdriver().setup();
         Configuration.startMaximized = true;
-//        Selenide.open("https:https://ee.ge/");
-//        $(".btn-cart").click();
-//        $(".btn-cart").shouldBe(Condition.empty);
+        $(".btn-cart").click();
+        $(".btn-cart").shouldBe(Condition.empty);
         $(byId("search-list")).setValue("კომპიუტერი").pressEnter();
         $(byClassName("d-xs-none")).click();
 
 
-//
+
 
     }
 
